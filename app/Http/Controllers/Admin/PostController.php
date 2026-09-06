@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\Tag;
 use App\Enums\PostStatus;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -20,19 +21,20 @@ class PostController extends Controller
 
     public function index()
     {
+        Gate::authorize('viewAny', Post::class);
+
         $posts = Post::with([
             'user',
             'category',
             'tags',
-        ])
-        ->latest()
-        ->get();
+        ])->when(! auth()->user()->can('view_all_posts'), fn ($query) => $query->whereBelongsTo(auth()->user()))
+            ->latest()
+            ->get();
 
         return view('admin.posts.index', [
             'posts' => $posts,
         ]);
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +44,7 @@ class PostController extends Controller
 
     public function create()
     {
+        Gate::authorize('create', Post::class);
         $categories = Category::orderBy('name')->get();
         $tags = Tag::orderBy('name')->get();
 
@@ -51,7 +54,6 @@ class PostController extends Controller
         ]);
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Store new post
@@ -60,6 +62,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Post::class);
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string'],
@@ -73,11 +76,15 @@ class PostController extends Controller
             'tags.*' => ['exists:tags,id'],
         ]);
 
+        if ($validated['status'] === 'published' && ! $request->user()->can('publish_posts')) {
+            abort(403, 'You do not have permission to publish posts.');
+        }
+
         $post = Post::create([
             'user_id' => auth()->id(),
             'category_id' => $validated['category_id'] ?? null,
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']),
+            'slug' => $this->uniqueSlug($validated['title']),
             'excerpt' => $validated['excerpt'] ?? null,
             'content' => $validated['content'],
             'featured_image' => $validated['featured_image'] ?? null,
@@ -96,7 +103,6 @@ class PostController extends Controller
             ->with('success', 'Post created successfully.');
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Display one post
@@ -105,6 +111,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        Gate::authorize('view', $post);
         $post->load([
             'user',
             'category',
@@ -116,7 +123,6 @@ class PostController extends Controller
         ]);
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Show edit form
@@ -125,6 +131,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        Gate::authorize('update', $post);
         $categories = Category::orderBy('name')->get();
         $tags = Tag::orderBy('name')->get();
 
@@ -137,7 +144,6 @@ class PostController extends Controller
         ]);
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Update post
@@ -146,6 +152,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
+        Gate::authorize('update', $post);
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string'],
@@ -159,10 +166,14 @@ class PostController extends Controller
             'tags.*' => ['exists:tags,id'],
         ]);
 
+        if ($validated['status'] === 'published') {
+            Gate::authorize('publish', $post);
+        }
+
         $post->update([
             'category_id' => $validated['category_id'] ?? null,
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']),
+            'slug' => $this->uniqueSlug($validated['title'], $post),
             'excerpt' => $validated['excerpt'] ?? null,
             'content' => $validated['content'],
             'featured_image' => $validated['featured_image'] ?? null,
@@ -181,7 +192,6 @@ class PostController extends Controller
             ->with('success', 'Post updated successfully.');
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Delete post
@@ -190,6 +200,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        Gate::authorize('delete', $post);
         $post->tags()->detach();
 
         $post->delete();
@@ -197,5 +208,18 @@ class PostController extends Controller
         return redirect()
             ->route('admin.posts.index')
             ->with('success', 'Post deleted successfully.');
+    }
+
+    private function uniqueSlug(string $title, ?Post $except = null): string
+    {
+        $base = Str::slug($title) ?: 'post';
+        $slug = $base;
+        $suffix = 2;
+
+        while (Post::query()->when($except, fn ($query) => $query->whereKeyNot($except->getKey()))->where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$suffix++;
+        }
+
+        return $slug;
     }
 }

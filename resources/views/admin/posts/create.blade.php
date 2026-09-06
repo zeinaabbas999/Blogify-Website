@@ -2,7 +2,6 @@
 
 @section('content')
 
-```
 <div class="space-y-6">
 
     {{-- Page header --}}
@@ -278,12 +277,14 @@
                         Draft
                     </option>
 
+                    @can('publish_posts')
                     <option
                         value="published"
                         {{ old('status') === 'published' ? 'selected' : '' }}
                     >
                         Published
                     </option>
+                    @endcan
 
                 </select>
 
@@ -427,6 +428,4 @@
     </div>
 
 </div>
-```
-
 @endsection

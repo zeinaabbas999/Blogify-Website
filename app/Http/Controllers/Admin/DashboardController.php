@@ -10,20 +10,24 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        return view('admin.dashboard', [
-            'postsCount' => Post::count(),
+        $posts = Post::query()
+            ->when(! auth()->user()->can('view_all_posts'), fn ($query) => $query->whereBelongsTo(auth()->user()));
 
-            'publishedPosts' => Post::where(
+        return view('admin.dashboard', [
+            'postsCount' => (clone $posts)->count(),
+
+            'publishedPosts' => (clone $posts)->where(
                 'status',
                 'published'
             )->count(),
 
-            'draftPosts' => Post::where(
+            'draftPosts' => (clone $posts)->where(
                 'status',
                 'draft'
             )->count(),
 
-            'usersCount' => User::count(),
+            'usersCount' => auth()->user()->can('manage_users') ? User::count() : null,
+            'recentPosts' => (clone $posts)->with('user')->latest()->limit(6)->get(),
         ]);
     }
 }

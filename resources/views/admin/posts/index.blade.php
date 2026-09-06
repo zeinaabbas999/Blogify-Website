@@ -127,13 +127,16 @@
                                 View
                             </a>
 
+                            @can('update', $post)
                             <a href="{{ route('admin.posts.edit', $post) }}"
                                class="rounded-lg bg-indigo-600 px-3 py-2
                                       text-sm font-medium text-white transition
                                       hover:bg-indigo-500">
                                 Edit
                             </a>
+                            @endcan
 
+                            @can('delete', $post)
                             <form action="{{ route('admin.posts.destroy', $post) }}"
                                   method="POST"
                                   onsubmit="return confirm('Are you sure you want to delete this post?');">
@@ -150,6 +153,7 @@
                                 </button>
 
                             </form>
+                            @endcan
 
                         </div>
 

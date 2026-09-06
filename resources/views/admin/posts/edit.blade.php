@@ -285,12 +285,14 @@
                             Draft
                         </option>
 
+                        @can('publish_posts')
                         <option
                             value="published"
                             {{ old('status', $post->status->value) === 'published' ? 'selected' : '' }}
                         >
                             Published
                         </option>
+                        @endcan
 
                     </select>
 

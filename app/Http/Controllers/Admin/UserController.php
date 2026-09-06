@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
+        Gate::authorize('viewAny', User::class);
         $users = User::with('roles')
             ->latest()
             ->get();
@@ -21,18 +24,20 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::orderBy('name')->get();
+        Gate::authorize('create', User::class);
+        $roles = $this->assignableRoles();
 
         return view('admin.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('create', User::class);
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'exists:roles,name'],
+            'role' => ['required', Rule::exists('roles', 'name'), Rule::in($this->assignableRoles()->pluck('name'))],
         ]);
 
         $user = User::create([
@@ -50,6 +55,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        Gate::authorize('view', $user);
         $user->load('roles', 'posts');
 
         return view('admin.users.show', compact('user'));
@@ -57,29 +63,34 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $roles = Role::orderBy('name')->get();
+        Gate::authorize('update', $user);
+        $roles = $this->assignableRoles();
 
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
     {
+        Gate::authorize('update', $user);
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                'unique:users,email,' . $user->id,
+                'unique:users,email,'.$user->id,
             ],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'exists:roles,name'],
+            'role' => ['required', Rule::exists('roles', 'name'), Rule::in($this->assignableRoles()->pluck('name'))],
         ]);
 
         $user->name = $validated['name'];
-        $user->email = $validated['email'];
+        if ($user->email !== $validated['email']) {
+            $user->email = $validated['email'];
+            $user->email_verified_at = null;
+        }
 
-        if (!empty($validated['password'])) {
+        if (! empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
         }
 
@@ -94,6 +105,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        Gate::authorize('delete', $user);
         if ($user->id === auth()->id()) {
             return redirect()
                 ->route('admin.users.index')
@@ -105,5 +117,13 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('success', 'User deleted successfully.');
+    }
+
+    private function assignableRoles()
+    {
+        return Role::query()
+            ->when(! auth()->user()->can('manage_roles'), fn ($query) => $query->where('name', '!=', 'Super Admin'))
+            ->orderBy('name')
+            ->get();
     }
 }
