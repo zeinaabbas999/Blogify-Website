@@ -11,33 +11,33 @@
                 User Details
             </h1>
 
-            <p class="mt-1 text-sm text-slate-400">
+            <p class="mt-1 text-sm text-stone-600">
                 View account information and activity.
             </p>
         </div>
 
         <a href="{{ route('admin.users.edit', $user) }}"
-           class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
+           class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-stone-900 hover:bg-orange-600">
             Edit User
         </a>
 
     </div>
 
-    <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+    <div class="rounded-xl border border-stone-300 bg-white p-6">
 
         <div class="flex items-center gap-5">
 
-            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 text-xl font-bold text-white">
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 text-xl font-bold text-stone-900">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
 
             <div>
 
-                <h2 class="text-xl font-semibold text-white">
+                <h2 class="text-xl font-semibold text-stone-900">
                     {{ $user->name }}
                 </h2>
 
-                <p class="text-sm text-slate-400">
+                <p class="text-sm text-stone-600">
                     {{ $user->email }}
                 </p>
 
@@ -48,7 +48,7 @@
         <div class="mt-8 grid gap-6 md:grid-cols-2">
 
             <div>
-                <p class="text-xs uppercase tracking-wider text-slate-500">
+                <p class="text-xs uppercase tracking-wider text-stone-600">
                     Role
                 </p>
 
@@ -62,7 +62,7 @@
 
                     @empty
 
-                        <span class="text-sm text-slate-500">
+                        <span class="text-sm text-stone-600">
                             No role assigned
                         </span>
 
@@ -72,31 +72,31 @@
             </div>
 
             <div>
-                <p class="text-xs uppercase tracking-wider text-slate-500">
+                <p class="text-xs uppercase tracking-wider text-stone-600">
                     Joined
                 </p>
 
-                <p class="mt-2 text-sm text-slate-300">
+                <p class="mt-2 text-sm text-stone-800">
                     {{ $user->created_at->format('M d, Y') }}
                 </p>
             </div>
 
             <div>
-                <p class="text-xs uppercase tracking-wider text-slate-500">
+                <p class="text-xs uppercase tracking-wider text-stone-600">
                     Posts
                 </p>
 
-                <p class="mt-2 text-sm text-slate-300">
+                <p class="mt-2 text-sm text-stone-800">
                     {{ $user->posts->count() }}
                 </p>
             </div>
 
             <div>
-                <p class="text-xs uppercase tracking-wider text-slate-500">
+                <p class="text-xs uppercase tracking-wider text-stone-600">
                     Last Updated
                 </p>
 
-                <p class="mt-2 text-sm text-slate-300">
+                <p class="mt-2 text-sm text-stone-800">
                     {{ $user->updated_at->format('M d, Y') }}
                 </p>
             </div>

@@ -24,11 +24,21 @@ class DevelopmentAdminSeeder extends Seeder
             return;
         }
 
+        $password = config('cms.development_admin.password');
+
+        if (! is_string($password) || $password === '') {
+            $this->command?->warn('Development admin was not seeded because DEVELOPMENT_ADMIN_PASSWORD is empty.');
+
+            return;
+        }
+
+        $existingUser = User::where('email', $email)->first();
+
         $user = User::updateOrCreate(
             ['email' => $email],
             [
-                'name' => config('cms.development_admin.name'),
-                'password' => Hash::make(config('cms.development_admin.password')),
+                'name' => $existingUser?->name ?? config('cms.development_admin.name'),
+                'password' => Hash::make($password),
                 'email_verified_at' => now(),
             ],
         );

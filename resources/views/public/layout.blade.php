@@ -16,7 +16,7 @@
                     <a href="{{ route('profile.edit') }}" class="hover:text-orange-600">Profile</a>
                 @else
                     <a href="{{ route('login') }}" class="hover:text-orange-600">Log in</a>
-                    <a href="{{ route('register') }}" class="border border-stone-900 px-4 py-2 hover:bg-stone-900 hover:text-white">Register</a>
+                    <a href="{{ route('register') }}" class="border border-stone-300 px-4 py-2 hover:bg-stone-900 hover:text-white">Register</a>
                 @endauth
             </nav>
         </div>

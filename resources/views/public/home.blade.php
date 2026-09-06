@@ -1,6 +1,6 @@
 <x-public-layout>
     <div class="mx-auto max-w-6xl px-5 py-12">
-        <div class="max-w-2xl border-b-4 border-stone-900 pb-6">
+        <div class="max-w-2xl border-b border-stone-300 pb-6">
             <p class="mb-3 text-sm font-bold uppercase tracking-widest text-orange-600">Latest publishing</p>
             <h1 class="font-serif text-4xl font-bold leading-tight sm:text-5xl">Stories, reporting, and ideas worth reading.</h1>
         </div>

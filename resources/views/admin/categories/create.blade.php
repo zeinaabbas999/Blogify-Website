@@ -9,13 +9,13 @@
                 Create Category
             </h1>
 
-            <p class="mt-1 text-sm text-slate-400">
+            <p class="mt-1 text-sm text-stone-600">
                 Add a new post category.
             </p>
         </div>
 
 
-        <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+        <div class="rounded-xl border border-stone-300 bg-white p-6">
 
             <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-6">
 
@@ -23,7 +23,7 @@
 
                 <div>
                     <label for="name"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Name
                     </label>
 
@@ -32,16 +32,16 @@
                         id="name"
                         name="name"
                         placeholder="Enter category name"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600">
                 </div>
 
 
                 <div>
                     <label for="slug"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Slug
                     </label>
 
@@ -50,16 +50,16 @@
                         id="slug"
                         name="slug"
                         placeholder="category-slug"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600">
                 </div>
 
 
                 <div>
                     <label for="description"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Description
                     </label>
 
@@ -68,9 +68,9 @@
                         name="description"
                         rows="4"
                         placeholder="Describe this category..."
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-3 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-3 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600"
                     ></textarea>
                 </div>
@@ -80,14 +80,14 @@
 
                     <button type="submit"
                             class="rounded-lg bg-orange-600 px-5 py-2.5
-                                   text-sm font-medium text-white
+                                   text-sm font-medium text-stone-900
                                    hover:bg-orange-600">
                         Create Category
                     </button>
 
                     <a href="{{ route('admin.categories.index') }}"
-                       class="rounded-lg border border-slate-700 px-5 py-2.5
-                              text-sm font-medium text-slate-300
+                       class="rounded-lg border border-stone-300 px-5 py-2.5
+                              text-sm font-medium text-stone-800
                               hover:bg-slate-800 hover:underline">
                         Cancel
                     </a>

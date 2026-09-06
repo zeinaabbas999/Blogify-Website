@@ -9,14 +9,14 @@
             Edit User
         </h1>
 
-        <p class="mt-1 text-sm text-slate-400">
+        <p class="mt-1 text-sm text-stone-600">
             Update user information and role.
         </p>
     </div>
 
     @if($errors->any())
 
-        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3">
+        <div class="rounded-lg border border-stone-300 bg-stone-100 px-4 py-3">
 
             <ul class="list-disc space-y-1 pl-5 text-sm text-orange-600">
 
@@ -37,12 +37,12 @@
         @csrf
         @method('PUT')
 
-        <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-6">
+        <div class="rounded-xl border border-stone-300 bg-white p-6 space-y-6">
 
             <div>
 
                 <label for="name"
-                       class="block text-sm font-medium text-slate-300">
+                       class="block text-sm font-medium text-stone-800">
                     Name
                 </label>
 
@@ -52,7 +52,7 @@
                     name="name"
                     value="{{ old('name', $user->name) }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
+                    class="mt-2 w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-stone-900 outline-none focus:border-orange-600"
                 >
 
             </div>
@@ -60,7 +60,7 @@
             <div>
 
                 <label for="email"
-                       class="block text-sm font-medium text-slate-300">
+                       class="block text-sm font-medium text-stone-800">
                     Email
                 </label>
 
@@ -70,7 +70,7 @@
                     name="email"
                     value="{{ old('email', $user->email) }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
+                    class="mt-2 w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-stone-900 outline-none focus:border-orange-600"
                 >
 
             </div>
@@ -78,7 +78,7 @@
             <div>
 
                 <label for="role"
-                       class="block text-sm font-medium text-slate-300">
+                       class="block text-sm font-medium text-stone-800">
                     Role
                 </label>
 
@@ -90,7 +90,7 @@
                     id="role"
                     name="role"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
+                    class="mt-2 w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-stone-900 outline-none focus:border-orange-600"
                 >
 
                     @foreach($roles as $role)
@@ -106,13 +106,13 @@
 
             </div>
 
-            <div class="border-t border-slate-800 pt-6">
+            <div class="border-t border-stone-300 pt-6">
 
-                <h2 class="text-sm font-semibold text-white">
+                <h2 class="text-sm font-semibold text-stone-900">
                     Change Password
                 </h2>
 
-                <p class="mt-1 text-sm text-slate-500">
+                <p class="mt-1 text-sm text-stone-600">
                     Leave these fields empty to keep the current password.
                 </p>
 
@@ -121,7 +121,7 @@
                     <div>
 
                         <label for="password"
-                               class="block text-sm font-medium text-slate-300">
+                               class="block text-sm font-medium text-stone-800">
                             New Password
                         </label>
 
@@ -129,7 +129,7 @@
                             type="password"
                             id="password"
                             name="password"
-                            class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
+                            class="mt-2 w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-stone-900 outline-none focus:border-orange-600"
                         >
 
                     </div>
@@ -137,7 +137,7 @@
                     <div>
 
                         <label for="password_confirmation"
-                               class="block text-sm font-medium text-slate-300">
+                               class="block text-sm font-medium text-stone-800">
                             Confirm New Password
                         </label>
 
@@ -145,7 +145,7 @@
                             type="password"
                             id="password_confirmation"
                             name="password_confirmation"
-                            class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
+                            class="mt-2 w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-stone-900 outline-none focus:border-orange-600"
                         >
 
                     </div>
@@ -164,7 +164,7 @@
             </a>
 
             <button type="submit"
-                    class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
+                    class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-stone-900 hover:bg-orange-600">
                 Save Changes
             </button>
 

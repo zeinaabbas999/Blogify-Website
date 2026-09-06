@@ -173,7 +173,7 @@ class PostController extends Controller
         $post->update([
             'category_id' => $validated['category_id'] ?? null,
             'title' => $validated['title'],
-            'slug' => $this->uniqueSlug($validated['title'], $post),
+            'slug' => $post->slug,
             'excerpt' => $validated['excerpt'] ?? null,
             'content' => $validated['content'],
             'featured_image' => $validated['featured_image'] ?? null,
@@ -210,13 +210,13 @@ class PostController extends Controller
             ->with('success', 'Post deleted successfully.');
     }
 
-    private function uniqueSlug(string $title, ?Post $except = null): string
+    private function uniqueSlug(string $title): string
     {
         $base = Str::slug($title) ?: 'post';
         $slug = $base;
         $suffix = 2;
 
-        while (Post::query()->when($except, fn ($query) => $query->whereKeyNot($except->getKey()))->where('slug', $slug)->exists()) {
+        while (Post::query()->where('slug', $slug)->exists()) {
             $slug = $base.'-'.$suffix++;
         }
 

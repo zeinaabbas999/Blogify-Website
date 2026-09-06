@@ -12,7 +12,7 @@
                     Edit Post
                 </h1>
 
-                <p class="mt-1 text-sm text-slate-400">
+                <p class="mt-1 text-sm text-stone-600">
                     Update your blog post.
                 </p>
             </div>
@@ -30,7 +30,7 @@
         {{-- Validation errors --}}
         @if ($errors->any())
 
-            <div class="rounded-lg border border-stone-900 bg-stone-100 p-4">
+            <div class="rounded-lg border border-stone-300 bg-stone-100 p-4">
 
                 <ul class="space-y-1 text-sm text-orange-600">
 
@@ -50,7 +50,7 @@
 
 
         {{-- Form --}}
-        <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+        <div class="rounded-xl border border-stone-300 bg-white p-6">
 
             <form action="{{ route('admin.posts.update', $post) }}"
                   method="POST"
@@ -64,7 +64,7 @@
                 <div>
 
                     <label for="title"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Title
                     </label>
 
@@ -74,9 +74,9 @@
                         name="title"
                         value="{{ old('title', $post->title) }}"
                         placeholder="Enter post title"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600"
                     >
 
@@ -89,36 +89,11 @@
                 </div>
 
 
-                {{-- Slug --}}
-                <div>
-
-                    <label for="slug"
-                           class="block text-sm font-medium text-slate-300">
-                        Slug
-                    </label>
-
-                    <input
-                        type="text"
-                        id="slug"
-                        value="{{ $post->slug }}"
-                        readonly
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-900 px-4 py-2.5 text-slate-500
-                               outline-none cursor-not-allowed"
-                    >
-
-                    <p class="mt-1 text-xs text-slate-500">
-                        The slug is automatically generated from the post title.
-                    </p>
-
-                </div>
-
-
                 {{-- Excerpt --}}
                 <div>
 
                     <label for="excerpt"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Excerpt
                     </label>
 
@@ -127,9 +102,9 @@
                         name="excerpt"
                         rows="3"
                         placeholder="Short description of the post..."
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-3 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-3 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600"
                     >{{ old('excerpt', $post->excerpt) }}</textarea>
 
@@ -146,7 +121,7 @@
                 <div>
 
                     <label for="content"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Content
                     </label>
 
@@ -155,9 +130,9 @@
                         name="content"
                         rows="12"
                         placeholder="Write your post..."
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-3 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-3 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600"
                     >{{ old('content', $post->content) }}</textarea>
 
@@ -174,15 +149,15 @@
                 <div>
 
                     <label for="category_id"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Category
                     </label>
 
                     <select
                         id="category_id"
                         name="category_id"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
                                outline-none focus:border-orange-600"
                     >
 
@@ -216,7 +191,7 @@
                 <div>
 
                     <label for="tags"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Tags
                     </label>
 
@@ -231,8 +206,8 @@
                         id="tags"
                         name="tags[]"
                         multiple
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-3 text-white
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-3 text-stone-900
                                outline-none focus:border-orange-600"
                     >
 
@@ -249,7 +224,7 @@
 
                     </select>
 
-                    <p class="mt-1 text-xs text-slate-500">
+                    <p class="mt-1 text-xs text-stone-600">
                         Hold Ctrl while clicking to select multiple tags.
                     </p>
 
@@ -266,15 +241,15 @@
                 <div>
 
                     <label for="status"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Status
                     </label>
 
                     <select
                         id="status"
                         name="status"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
                                outline-none focus:border-orange-600"
                     >
 
@@ -309,7 +284,7 @@
                 <div>
 
                     <label for="featured_image"
-                           class="block text-sm font-medium text-slate-300">
+                           class="block text-sm font-medium text-stone-800">
                         Featured Image
                     </label>
 
@@ -319,9 +294,9 @@
                         name="featured_image"
                         value="{{ old('featured_image', $post->featured_image) }}"
                         placeholder="Image URL or path"
-                        class="mt-2 w-full rounded-lg border border-slate-700
-                               bg-slate-950 px-4 py-2.5 text-white
-                               placeholder-slate-500 outline-none
+                        class="mt-2 w-full rounded-lg border border-stone-300
+                               bg-white px-4 py-2.5 text-stone-900
+                               placeholder-stone-500 outline-none
                                focus:border-orange-600"
                     >
 
@@ -335,13 +310,13 @@
 
 
                 {{-- SEO --}}
-                <div class="border-t border-slate-800 pt-6">
+                <div class="border-t border-stone-300 pt-6">
 
-                    <h2 class="text-lg font-semibold text-white">
+                    <h2 class="text-lg font-semibold text-stone-900">
                         SEO
                     </h2>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-stone-600">
                         Search engine metadata for this post.
                     </p>
 
@@ -350,7 +325,7 @@
                     <div class="mt-5">
 
                         <label for="meta_title"
-                               class="block text-sm font-medium text-slate-300">
+                               class="block text-sm font-medium text-stone-800">
                             Meta Title
                         </label>
 
@@ -360,9 +335,9 @@
                             name="meta_title"
                             value="{{ old('meta_title', $post->meta_title) }}"
                             placeholder="SEO title"
-                            class="mt-2 w-full rounded-lg border border-slate-700
-                                   bg-slate-950 px-4 py-2.5 text-white
-                                   placeholder-slate-500 outline-none
+                            class="mt-2 w-full rounded-lg border border-stone-300
+                                   bg-white px-4 py-2.5 text-stone-900
+                                   placeholder-stone-500 outline-none
                                    focus:border-orange-600"
                         >
 
@@ -379,7 +354,7 @@
                     <div class="mt-5">
 
                         <label for="meta_description"
-                               class="block text-sm font-medium text-slate-300">
+                               class="block text-sm font-medium text-stone-800">
                             Meta Description
                         </label>
 
@@ -388,9 +363,9 @@
                             name="meta_description"
                             rows="4"
                             placeholder="SEO description..."
-                            class="mt-2 w-full rounded-lg border border-slate-700
-                                   bg-slate-950 px-4 py-3 text-white
-                                   placeholder-slate-500 outline-none
+                            class="mt-2 w-full rounded-lg border border-stone-300
+                                   bg-white px-4 py-3 text-stone-900
+                                   placeholder-stone-500 outline-none
                                    focus:border-orange-600"
                         >{{ old('meta_description', $post->meta_description) }}</textarea>
 
@@ -406,21 +381,21 @@
 
 
                 {{-- Buttons --}}
-                <div class="flex gap-3 border-t border-slate-800 pt-6">
+                <div class="flex gap-3 border-t border-stone-300 pt-6">
 
                     <button
                         type="submit"
                         class="rounded-lg bg-orange-600 px-5 py-2.5
-                               text-sm font-medium text-white
+                               text-sm font-medium text-stone-900
                                transition hover:bg-orange-600">
                         Update Post
                     </button>
 
                     <a
                         href="{{ route('admin.posts.show', $post) }}"
-                        class="rounded-lg border border-slate-700
+                        class="rounded-lg border border-stone-300
                                px-5 py-2.5 text-sm font-medium
-                               text-slate-300 transition
+                               text-stone-800 transition
                                hover:bg-slate-800 hover:underline">
                         Cancel
                     </a>

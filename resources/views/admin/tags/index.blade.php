@@ -10,33 +10,33 @@
                 Tags
             </h1>
 
-            <p class="mt-1 text-sm text-slate-400">
+            <p class="mt-1 text-sm text-stone-600">
                 Manage your blog tags.
             </p>
         </div>
 
         <a href="{{ route('admin.tags.create') }}"
            class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm
-                  font-medium text-white transition hover:bg-orange-600">
+                  font-medium text-stone-900 transition hover:bg-orange-600">
             + Add Tag
         </a>
     </div>
 
-    <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+    <div class="overflow-hidden rounded-xl border border-stone-300 bg-white">
 
         <table class="w-full text-left">
 
-            <thead class="border-b border-slate-800 bg-slate-950">
+            <thead class="border-b border-stone-300 bg-white">
                 <tr>
-                    <th class="px-6 py-4 text-sm font-medium text-slate-400">
+                    <th class="px-6 py-4 text-sm font-medium text-stone-600">
                         Name
                     </th>
 
-                    <th class="px-6 py-4 text-sm font-medium text-slate-400">
+                    <th class="px-6 py-4 text-sm font-medium text-stone-600">
                         Slug
                     </th>
 
-                    <th class="px-6 py-4 text-right text-sm font-medium text-slate-400">
+                    <th class="px-6 py-4 text-right text-sm font-medium text-stone-600">
                         Actions
                     </th>
                 </tr>
@@ -48,11 +48,11 @@
 
                     <tr class="hover:bg-slate-800/50">
 
-                        <td class="px-6 py-4 text-sm font-medium text-white">
+                        <td class="px-6 py-4 text-sm font-medium text-stone-900">
                             {{ $tag->name }}
                         </td>
 
-                        <td class="px-6 py-4 text-sm text-slate-400">
+                        <td class="px-6 py-4 text-sm text-stone-600">
                             {{ $tag->slug }}
                         </td>
 
@@ -60,8 +60,8 @@
                             <div class="flex justify-end gap-2">
 
                                 <a href="{{ route('admin.tags.edit', $tag) }}"
-                                   class="rounded-lg border border-slate-700
-                                          px-3 py-2 text-sm text-slate-300
+                                   class="rounded-lg border border-stone-300
+                                          px-3 py-2 text-sm text-stone-800
                                           hover:bg-slate-800">
                                     Edit
                                 </a>
@@ -75,7 +75,7 @@
 
                                     <button
                                         type="submit"
-                                        class="rounded-lg border border-stone-900
+                                        class="rounded-lg border border-stone-300
                                                px-3 py-2 text-sm text-orange-600
                                                hover:bg-stone-900">
                                         Delete
@@ -92,7 +92,7 @@
 
                     <tr>
                         <td colspan="3"
-                            class="px-6 py-10 text-center text-sm text-slate-500">
+                            class="px-6 py-10 text-center text-sm text-stone-600">
                             No tags found.
                         </td>
                     </tr>

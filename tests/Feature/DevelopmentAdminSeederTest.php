@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\PostStatus;
+use App\Models\Post;
 use App\Models\User;
 use Database\Seeders\DevelopmentAdminSeeder;
 use Database\Seeders\PermissionSeeder;
@@ -45,4 +47,35 @@ test('repair command verifies only an explicitly selected development admin', fu
 
     expect($admin->fresh()->hasVerifiedEmail())->toBeTrue()
         ->and($author->fresh()->hasVerifiedEmail())->toBeFalse();
+});
+
+test('seeder promotes an existing author without replacing identity or content', function () {
+    $this->seed([PermissionSeeder::class, RoleSeeder::class]);
+    config()->set('cms.development_admin', [
+        'name' => 'Configured Name',
+        'email' => 'zeina.abbas999@gmail.com',
+        'password' => 'development-password',
+    ]);
+
+    $author = User::factory()->create([
+        'name' => 'Existing Profile Name',
+        'email' => 'zeina.abbas999@gmail.com',
+    ]);
+    $author->assignRole('Author');
+    $post = Post::create([
+        'user_id' => $author->id,
+        'title' => 'Existing article',
+        'slug' => 'existing-article',
+        'content' => 'Preserved content.',
+        'status' => PostStatus::DRAFT,
+    ]);
+
+    $this->seed(DevelopmentAdminSeeder::class);
+    $promoted = User::where('email', 'zeina.abbas999@gmail.com')->sole();
+
+    expect($promoted->id)->toBe($author->id)
+        ->and($promoted->name)->toBe('Existing Profile Name')
+        ->and($promoted->hasRole('Super Admin'))->toBeTrue()
+        ->and($promoted->hasRole('Author'))->toBeFalse()
+        ->and($post->fresh()->user_id)->toBe($author->id);
 });

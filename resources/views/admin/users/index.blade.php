@@ -1,176 +1,71 @@
 @extends('layouts.admin')
 
 @section('content')
-
-<div class="space-y-6">
-
-    <div class="flex items-center justify-between">
-
+<div class="mx-auto max-w-6xl">
+    <div class="page-heading">
         <div>
-            <h1 class="text-2xl font-bold text-slate-900">
-                Users
-            </h1>
-
-            <p class="mt-1 text-sm text-slate-400">
-                Manage users and their roles.
-            </p>
+            <p class="eyebrow">Administration</p>
+            <h1>Users</h1>
+            <p>Manage accounts and their assigned roles.</p>
         </div>
-
-        <a href="{{ route('admin.users.create') }}"
-           class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
-            + Add User
-        </a>
-
+        <a href="{{ route('admin.users.create') }}" class="btn-primary">Add user</a>
     </div>
 
-    @if(session('success'))
-        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3 text-sm text-stone-900">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3 text-sm text-stone-900">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
-
+    <div class="mt-8 overflow-hidden border border-stone-300 bg-white">
         <div class="overflow-x-auto">
-
-            <table class="w-full text-left">
-
-                <thead class="border-b border-slate-800 bg-slate-950">
-
-                    <tr>
-                        <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                            User
-                        </th>
-
-                        <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                            Email
-                        </th>
-
-                        <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                            Role
-                        </th>
-
-                        <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
-                            Actions
-                        </th>
+            <table class="w-full min-w-[720px] text-left">
+                <thead class="border-b border-stone-300 bg-stone-50">
+                    <tr class="text-xs font-bold uppercase tracking-wider text-stone-600">
+                        <th class="px-5 py-3.5">User</th>
+                        <th class="px-5 py-3.5">Email</th>
+                        <th class="px-5 py-3.5">Role</th>
+                        <th class="px-5 py-3.5 text-right">Actions</th>
                     </tr>
-
                 </thead>
-
-                <tbody class="divide-y divide-slate-800">
-
-                    @forelse($users as $user)
-
-                        <tr class="hover:bg-slate-800/40">
-
-                            <td class="px-6 py-4">
-
+                <tbody class="divide-y divide-stone-200">
+                    @forelse ($users as $user)
+                        <tr class="hover:bg-stone-50">
+                            <td class="px-5 py-4">
                                 <div class="flex items-center gap-3">
-
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-600 font-semibold text-white">
+                                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-stone-200 text-sm font-bold text-stone-800">
                                         {{ strtoupper(substr($user->name, 0, 1)) }}
                                     </div>
-
                                     <div>
-                                        <p class="font-medium text-white">
-                                            {{ $user->name }}
-                                        </p>
-
-                                        @if($user->id === auth()->id())
-                                            <span class="text-xs text-orange-600">
-                                                You
-                                            </span>
+                                        <p class="font-semibold text-stone-900">{{ $user->name }}</p>
+                                        @if ($user->is(auth()->user()))
+                                            <span class="text-xs text-stone-500">Current account</span>
                                         @endif
                                     </div>
-
                                 </div>
-
                             </td>
-
-                            <td class="px-6 py-4 text-sm text-slate-300">
-                                {{ $user->email }}
-                            </td>
-
-                            <td class="px-6 py-4">
-
-                                @forelse($user->roles as $role)
-
-                                    <span class="inline-flex rounded-full bg-orange-600/10 px-3 py-1 text-xs font-medium text-orange-600">
-                                        {{ $role->name }}
-                                    </span>
-
+                            <td class="px-5 py-4 text-sm text-stone-700">{{ $user->email }}</td>
+                            <td class="px-5 py-4">
+                                @forelse ($user->roles as $role)
+                                    <span class="inline-flex border border-stone-300 bg-stone-50 px-2.5 py-1 text-xs font-semibold text-stone-700">{{ $role->name }}</span>
                                 @empty
-
-                                    <span class="text-sm text-slate-500">
-                                        No role
-                                    </span>
-
+                                    <span class="text-sm text-stone-500">No role</span>
                                 @endforelse
-
                             </td>
-
-                            <td class="px-6 py-4">
-
-                                <div class="flex justify-end gap-2">
-
-                                    <a href="{{ route('admin.users.show', $user) }}"
-                                       class="rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-white">
-                                        View
-                                    </a>
-
-                                    <a href="{{ route('admin.users.edit', $user) }}"
-                                       class="rounded-lg px-3 py-2 text-sm text-orange-600 hover:bg-orange-600/10">
-                                        Edit
-                                    </a>
-
-                                    @if($user->id !== auth()->id())
-
-                                        <form action="{{ route('admin.users.destroy', $user) }}"
-                                              method="POST"
-                                              onsubmit="return confirm('Are you sure you want to delete this user?');">
-
+                            <td class="px-5 py-4">
+                                <div class="flex items-center justify-end gap-4 text-sm font-semibold">
+                                    <a href="{{ route('admin.users.show', $user) }}" class="text-stone-700 hover:text-stone-950 hover:underline">View</a>
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="text-orange-600 hover:underline">Edit</a>
+                                    @if (! $user->is(auth()->user()))
+                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                             @csrf
                                             @method('DELETE')
-
-                                            <button type="submit"
-                                                    class="rounded-lg px-3 py-2 text-sm text-orange-600 hover:bg-orange-600/10">
-                                                Delete
-                                            </button>
-
+                                            <button type="submit" class="text-stone-700 hover:text-stone-950 hover:underline">Delete</button>
                                         </form>
-
                                     @endif
-
                                 </div>
-
                             </td>
-
                         </tr>
-
                     @empty
-
-                        <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-500">
-                                No users found.
-                            </td>
-                        </tr>
-
+                        <tr><td colspan="4" class="px-5 py-14 text-center text-sm text-stone-600">No users found.</td></tr>
                     @endforelse
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
-
 </div>
-
 @endsection

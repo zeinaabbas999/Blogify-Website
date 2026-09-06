@@ -12,14 +12,14 @@
                     Posts
                 </h1>
 
-                <p class="mt-1 text-sm text-slate-400">
+                <p class="mt-1 text-sm text-stone-600">
                     Manage your blog posts.
                 </p>
             </div>
 
             <a href="{{ route('admin.posts.create') }}"
                title="Create a new post"
-               class="rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-medium text-white
+               class="rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-medium text-stone-900
                       transition hover:bg-orange-600 hover:underline">
                 + Create Post
             </a>
@@ -32,8 +32,8 @@
 
             @forelse ($posts as $post)
 
-                <div class="rounded-xl border border-slate-800 bg-slate-900 p-5
-                            transition hover:border-slate-700">
+                <div class="rounded-xl border border-stone-300 bg-white p-5
+                            transition hover:border-stone-300">
 
                     <div class="flex items-start justify-between gap-6">
 
@@ -41,11 +41,11 @@
                         <div class="min-w-0 flex-1">
 
                             <a href="{{ route('admin.posts.show', $post) }}"
-                               class="text-lg font-semibold text-white hover:underline">
+                               class="text-lg font-semibold text-stone-900 hover:underline">
                                 {{ $post->title }}
                             </a>
 
-                            <p class="mt-1 text-sm text-slate-400">
+                            <p class="mt-1 text-sm text-stone-600">
                                 {{ $post->excerpt ?: 'No excerpt provided.' }}
                             </p>
 
@@ -72,7 +72,7 @@
                                 {{-- Category --}}
                                 @if ($post->category)
 
-                                    <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-300">
+                                    <span class="rounded-full border border-stone-300 bg-stone-100 px-3 py-1 font-semibold text-stone-800">
                                         {{ $post->category->name }}
                                     </span>
 
@@ -82,7 +82,7 @@
                                 {{-- Author --}}
                                 @if ($post->user)
 
-                                    <span class="text-slate-500">
+                                    <span class="text-stone-600">
                                         By {{ $post->user->name }}
                                     </span>
 
@@ -90,7 +90,7 @@
 
 
                                 {{-- Date --}}
-                                <span class="text-slate-500">
+                                <span class="text-stone-600">
                                     {{ $post->created_at->format('M d, Y') }}
                                 </span>
 
@@ -104,7 +104,7 @@
 
                                     @foreach ($post->tags as $tag)
 
-                                        <span class="rounded-md bg-slate-800 px-2.5 py-1 text-xs text-slate-400">
+                                        <span class="rounded-md border border-stone-300 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700">
                                             #{{ $tag->name }}
                                         </span>
 
@@ -130,7 +130,7 @@
                             @can('update', $post)
                             <a href="{{ route('admin.posts.edit', $post) }}"
                                class="rounded-lg bg-orange-600 px-3 py-2
-                                      text-sm font-medium text-white transition
+                                      text-sm font-medium text-stone-900 transition
                                       hover:bg-orange-600">
                                 Edit
                             </a>
@@ -146,7 +146,7 @@
 
                                 <button
                                     type="submit"
-                                    class="rounded-lg border border-stone-900 px-3 py-2
+                                    class="rounded-lg border border-stone-300 px-3 py-2
                                            text-sm text-orange-600 transition
                                            hover:bg-stone-100">
                                     Delete
@@ -163,9 +163,9 @@
 
             @empty
 
-                <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+                <div class="rounded-xl border border-stone-300 bg-white p-6">
 
-                    <p class="text-sm text-slate-400">
+                    <p class="text-sm text-stone-600">
                         No posts found.
                     </p>
 

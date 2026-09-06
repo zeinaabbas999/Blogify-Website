@@ -47,3 +47,42 @@ test('public website hides drafts and displays published posts', function () {
     $this->get(route('home'))->assertOk()->assertSee('Visible story')->assertDontSee('Hidden draft');
     $this->get('/articles/hidden-draft')->assertNotFound();
 });
+
+test('post slugs are generated uniquely and remain stable when titles change', function () {
+    $author = User::factory()->create();
+    $author->assignRole('Author');
+
+    $payload = [
+        'title' => 'My First Blog Post',
+        'content' => 'Readable post content.',
+        'status' => 'draft',
+    ];
+
+    $this->actingAs($author)->post(route('admin.posts.store'), $payload)->assertRedirect(route('admin.posts.index'));
+    $this->actingAs($author)->post(route('admin.posts.store'), $payload)->assertRedirect(route('admin.posts.index'));
+
+    $posts = Post::whereBelongsTo($author)->oldest()->get();
+    expect($posts->pluck('slug')->all())->toBe(['my-first-blog-post', 'my-first-blog-post-2']);
+
+    $this->actingAs($author)->put(route('admin.posts.update', $posts->first()), [
+        ...$payload,
+        'title' => 'A Completely Different Title',
+    ])->assertRedirect(route('admin.posts.index'));
+
+    expect($posts->first()->fresh()->slug)->toBe('my-first-blog-post');
+});
+
+test('user deletion flash message is rendered once', function () {
+    $admin = User::factory()->create();
+    $target = User::factory()->create();
+    $admin->assignRole('Super Admin');
+    $target->assignRole('Author');
+
+    $response = $this->actingAs($admin)
+        ->delete(route('admin.users.destroy', $target))
+        ->assertRedirect(route('admin.users.index'));
+
+    $page = $this->actingAs($admin)->get($response->headers->get('Location'))->assertOk();
+
+    expect(substr_count($page->getContent(), 'User deleted successfully.'))->toBe(1);
+});
