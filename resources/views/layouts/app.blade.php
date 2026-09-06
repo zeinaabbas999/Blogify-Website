@@ -1,36 +1,3 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
-</html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><title>{{ config('app.name') }}</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
+<body class="bg-stone-100 text-stone-900 antialiased"><header class="border-b border-stone-800 bg-stone-950 text-white"><div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5"><a href="{{ route('dashboard') }}" class="font-serif text-xl font-bold">{{ config('app.name') }}</a><nav class="flex items-center gap-5 text-sm font-semibold"><a href="{{ route('home') }}" class="text-stone-300 hover:text-white">View site</a><a href="{{ route('dashboard') }}" class="hover:text-orange-600">Dashboard</a><form method="POST" action="{{ route('logout') }}">@csrf<button class="text-stone-300 hover:text-white">Log out</button></form></nav></div></header>@isset($header)<div class="border-b border-stone-300 bg-white"><div class="mx-auto max-w-6xl px-5 py-7">{{ $header }}</div></div>@endisset<main class="product-content">{{ $slot }}</main></body></html>

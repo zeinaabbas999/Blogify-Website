@@ -9,7 +9,7 @@
         Edit Category
     </h1>
 
-    <p class="mt-1 text-sm text-indigo-800">
+    <p class="mt-1 text-sm text-orange-600">
         Update this category.
     </p>
 </div>
@@ -37,11 +37,11 @@
                 class="mt-2 w-full rounded-lg border border-slate-700
                        bg-slate-950 px-4 py-2.5 text-white
                        placeholder-slate-500 outline-none
-                       focus:border-indigo-500"
+                       focus:border-orange-600"
             >
 
             @error('name')
-                <p class="mt-1 text-sm text-red-400">
+                <p class="mt-1 text-sm text-orange-600">
                     {{ $message }}
                 </p>
             @enderror
@@ -60,11 +60,11 @@
                 class="mt-2 w-full rounded-lg border border-slate-700
                        bg-slate-950 px-4 py-3 text-white
                        placeholder-slate-500 outline-none
-                       focus:border-indigo-500"
+                       focus:border-orange-600"
             >{{ old('description', $category->description) }}</textarea>
 
             @error('description')
-                <p class="mt-1 text-sm text-red-400">
+                <p class="mt-1 text-sm text-orange-600">
                     {{ $message }}
                 </p>
             @enderror
@@ -74,9 +74,9 @@
 
             <button
                 type="submit"
-                class="rounded-lg bg-indigo-600 px-5 py-2.5
+                class="rounded-lg bg-orange-600 px-5 py-2.5
                        text-sm font-medium text-white
-                       transition hover:bg-indigo-500">
+                       transition hover:bg-orange-600">
                 Update Category
             </button>
 

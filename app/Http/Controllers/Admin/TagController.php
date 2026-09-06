@@ -49,7 +49,7 @@ class TagController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'unique:tags,name,' . $tag->id,
+                'unique:tags,name,'.$tag->id,
             ],
         ]);
 

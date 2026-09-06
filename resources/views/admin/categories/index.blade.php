@@ -17,8 +17,8 @@
     </div>
 
     <a href="{{ route('admin.categories.create') }}"
-       class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm
-              font-medium text-white transition hover:bg-indigo-500">
+       class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm
+              font-medium text-white transition hover:bg-orange-600">
         + Add Category
     </a>
 </div>
@@ -83,9 +83,9 @@
 
                                 <button
                                     type="submit"
-                                    class="rounded-lg border border-red-900
-                                           px-3 py-2 text-sm text-red-400
-                                           transition hover:bg-red-950">
+                                    class="rounded-lg border border-stone-900
+                                           px-3 py-2 text-sm text-orange-600
+                                           transition hover:bg-stone-900">
                                     Delete
                                 </button>
 

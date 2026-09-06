@@ -16,9 +16,9 @@
 
     @if($errors->any())
 
-        <div class="rounded-lg border border-red-800 bg-red-900/30 px-4 py-3">
+        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3">
 
-            <ul class="list-disc space-y-1 pl-5 text-sm text-red-400">
+            <ul class="list-disc space-y-1 pl-5 text-sm text-orange-600">
 
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -51,7 +51,7 @@
                     name="name"
                     value="{{ old('name') }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-indigo-500"
+                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
                 >
 
             </div>
@@ -69,7 +69,7 @@
                     name="email"
                     value="{{ old('email') }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-indigo-500"
+                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
                 >
 
             </div>
@@ -85,7 +85,7 @@
                     id="role"
                     name="role"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-indigo-500"
+                    class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
                 >
 
                     <option value="">
@@ -119,7 +119,7 @@
                         id="password"
                         name="password"
                         required
-                        class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-indigo-500"
+                        class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
                     >
 
                 </div>
@@ -136,7 +136,7 @@
                         id="password_confirmation"
                         name="password_confirmation"
                         required
-                        class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-indigo-500"
+                        class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none focus:border-orange-600"
                     >
 
                 </div>
@@ -153,7 +153,7 @@
             </a>
 
             <button type="submit"
-                    class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500">
+                    class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
                 Create User
             </button>
 

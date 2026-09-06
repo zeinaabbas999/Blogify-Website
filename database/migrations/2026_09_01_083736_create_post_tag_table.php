@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->primary([
                 'post_id',
-                'tag_id'
+                'tag_id',
             ]);
         });
     }

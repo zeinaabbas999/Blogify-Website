@@ -1,30 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
-        </div>
-    </body>
-</html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><title>{{ config('app.name') }}</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
+<body class="bg-stone-100 text-stone-900 antialiased">
+<div class="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)]">
+    <div class="hidden bg-stone-950 p-12 text-white lg:flex lg:flex-col lg:justify-between"><a href="{{ route('home') }}" class="font-serif text-3xl font-bold">{{ config('app.name') }}</a><div class="max-w-xl"><p class="text-xs font-bold uppercase tracking-[0.24em] text-orange-600">Independent publishing</p><p class="mt-5 font-serif text-5xl font-bold leading-tight">A focused workspace for writing, editing, and publishing.</p></div><p class="text-sm text-stone-500">{{ config('app.name') }} editorial CMS</p></div>
+    <main class="flex items-center justify-center px-5 py-10 sm:px-10"><div class="w-full max-w-md"><a href="{{ route('home') }}" class="font-serif text-3xl font-bold lg:hidden">{{ config('app.name') }}</a><div class="mt-8 border-t-4 border-stone-900 bg-white p-6 shadow-sm sm:p-9 lg:mt-0"><p class="text-xs font-bold uppercase tracking-widest text-orange-600">{{ config('app.name') }}</p><h1 class="mb-7 mt-2 font-serif text-3xl font-bold">{{ match (Route::currentRouteName()) { 'login' => 'Welcome back', 'register' => 'Create your account', 'password.request' => 'Reset your password', 'password.reset' => 'Choose a new password', 'verification.notice' => 'Verify your email', 'password.confirm' => 'Confirm your password', default => 'Your account' } }}</h1>{{ $slot }}</div><p class="mt-6 text-center text-sm text-stone-500"><a href="{{ route('home') }}" class="font-semibold text-orange-600 hover:underline">Return to the publication</a></p></div></main>
+</div>
+</body></html>

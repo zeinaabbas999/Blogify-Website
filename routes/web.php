@@ -13,9 +13,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PublicPostController::class, 'index'])->name('home');
 Route::get('/articles/{post:slug}', [PublicPostController::class, 'show'])->name('posts.show');
 
-Route::get('/dashboard', fn () => redirect()->route('admin.dashboard'))
+Route::get('/dashboard', function () {
+    $user = request()->user();
+
+    return redirect()->route(match (true) {
+        $user->hasAnyRole(['Super Admin', 'Admin']) => 'admin.dashboard',
+        $user->hasRole('Editor') => 'editor.dashboard',
+        default => 'author.dashboard',
+    });
+})
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('/author/dashboard', DashboardController::class)
+    ->middleware(['auth', 'verified', 'role:Author'])
+    ->name('author.dashboard');
+
+Route::get('/editor/dashboard', DashboardController::class)
+    ->middleware(['auth', 'verified', 'role:Editor'])
+    ->name('editor.dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -50,6 +66,7 @@ Route::middleware(['auth', 'verified'])
         */
 
         Route::get('/dashboard', DashboardController::class)
+            ->middleware('role:Super Admin|Admin')
             ->name('dashboard');
 
         /*

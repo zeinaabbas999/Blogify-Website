@@ -17,7 +17,7 @@
         </div>
 
         <a href="{{ route('admin.users.edit', $user) }}"
-           class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500">
+           class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
             Edit User
         </a>
 
@@ -27,7 +27,7 @@
 
         <div class="flex items-center gap-5">
 
-            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-600 text-xl font-bold text-white">
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 text-xl font-bold text-white">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
 
@@ -56,7 +56,7 @@
 
                     @forelse($user->roles as $role)
 
-                        <span class="inline-flex rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-400">
+                        <span class="inline-flex rounded-full bg-orange-600/10 px-3 py-1 text-sm font-medium text-orange-600">
                             {{ $role->name }}
                         </span>
 

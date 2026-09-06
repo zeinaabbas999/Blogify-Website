@@ -17,20 +17,20 @@
         </div>
 
         <a href="{{ route('admin.users.create') }}"
-           class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500">
+           class="rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-600">
             + Add User
         </a>
 
     </div>
 
     @if(session('success'))
-        <div class="rounded-lg border border-green-950 bg-green-900/30 px-4 py-3 text-sm text-green-950">
+        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3 text-sm text-stone-900">
             {{ session('success') }}
         </div>
     @endif
 
     @if(session('error'))
-        <div class="rounded-lg border border-red-900 bg-red-900/30 px-4 py-3 text-sm text-red-900">
+        <div class="rounded-lg border border-stone-900 bg-stone-100 px-4 py-3 text-sm text-stone-900">
             {{ session('error') }}
         </div>
     @endif
@@ -73,7 +73,7 @@
 
                                 <div class="flex items-center gap-3">
 
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-600 font-semibold text-white">
                                         {{ strtoupper(substr($user->name, 0, 1)) }}
                                     </div>
 
@@ -83,7 +83,7 @@
                                         </p>
 
                                         @if($user->id === auth()->id())
-                                            <span class="text-xs text-indigo-400">
+                                            <span class="text-xs text-orange-600">
                                                 You
                                             </span>
                                         @endif
@@ -101,7 +101,7 @@
 
                                 @forelse($user->roles as $role)
 
-                                    <span class="inline-flex rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-400">
+                                    <span class="inline-flex rounded-full bg-orange-600/10 px-3 py-1 text-xs font-medium text-orange-600">
                                         {{ $role->name }}
                                     </span>
 
@@ -125,7 +125,7 @@
                                     </a>
 
                                     <a href="{{ route('admin.users.edit', $user) }}"
-                                       class="rounded-lg px-3 py-2 text-sm text-indigo-400 hover:bg-indigo-500/10">
+                                       class="rounded-lg px-3 py-2 text-sm text-orange-600 hover:bg-orange-600/10">
                                         Edit
                                     </a>
 
@@ -139,7 +139,7 @@
                                             @method('DELETE')
 
                                             <button type="submit"
-                                                    class="rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-red-500/10">
+                                                    class="rounded-lg px-3 py-2 text-sm text-orange-600 hover:bg-orange-600/10">
                                                 Delete
                                             </button>
 

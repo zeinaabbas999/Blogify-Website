@@ -20,9 +20,9 @@
         <div class="flex gap-3">
 
             <a href="{{ route('admin.posts.edit', $post) }}"
-               class="rounded-lg bg-indigo-600 px-4 py-2.5
+               class="rounded-lg bg-orange-600 px-4 py-2.5
                       text-sm font-medium text-white
-                      transition hover:bg-indigo-500 hover:underline">
+                      transition hover:bg-orange-600 hover:underline">
                 Edit Post
             </a>
 
@@ -77,13 +77,13 @@
 
                 @if ($post->status->value === 'published')
 
-                    <span class="text-green-400">
+                    <span class="text-stone-600">
                         Published
                     </span>
 
                 @else
 
-                    <span class="text-yellow-400">
+                    <span class="text-stone-600">
                         Draft
                     </span>
 
@@ -227,9 +227,9 @@
 
             <a
                 href="{{ route('admin.posts.edit', $post) }}"
-                class="rounded-lg bg-indigo-600 px-5 py-2.5
+                class="rounded-lg bg-orange-600 px-5 py-2.5
                        text-sm font-medium text-white
-                       transition hover:bg-indigo-500">
+                       transition hover:bg-orange-600">
                 Edit Post
             </a>
 
@@ -244,10 +244,10 @@
 
                 <button
                     type="submit"
-                    class="rounded-lg border border-red-800
+                    class="rounded-lg border border-stone-900
                            px-5 py-2.5 text-sm font-medium
-                           text-red-400 transition
-                           hover:bg-red-900/30">
+                           text-orange-600 transition
+                           hover:bg-stone-100">
                     Delete Post
                 </button>
 

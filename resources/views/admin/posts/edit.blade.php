@@ -30,9 +30,9 @@
         {{-- Validation errors --}}
         @if ($errors->any())
 
-            <div class="rounded-lg border border-red-800 bg-red-900/30 p-4">
+            <div class="rounded-lg border border-stone-900 bg-stone-100 p-4">
 
-                <ul class="space-y-1 text-sm text-red-400">
+                <ul class="space-y-1 text-sm text-orange-600">
 
                     @foreach ($errors->all() as $error)
 
@@ -77,11 +77,11 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500"
+                               focus:border-orange-600"
                     >
 
                     @error('title')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -130,11 +130,11 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-3 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500"
+                               focus:border-orange-600"
                     >{{ old('excerpt', $post->excerpt) }}</textarea>
 
                     @error('excerpt')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -158,11 +158,11 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-3 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500"
+                               focus:border-orange-600"
                     >{{ old('content', $post->content) }}</textarea>
 
                     @error('content')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -183,7 +183,7 @@
                         name="category_id"
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
-                               outline-none focus:border-indigo-500"
+                               outline-none focus:border-orange-600"
                     >
 
                         <option value="">
@@ -204,7 +204,7 @@
                     </select>
 
                     @error('category_id')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -233,7 +233,7 @@
                         multiple
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-3 text-white
-                               outline-none focus:border-indigo-500"
+                               outline-none focus:border-orange-600"
                     >
 
                         @foreach ($tags as $tag)
@@ -254,7 +254,7 @@
                     </p>
 
                     @error('tags')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -275,7 +275,7 @@
                         name="status"
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
-                               outline-none focus:border-indigo-500"
+                               outline-none focus:border-orange-600"
                     >
 
                         <option
@@ -297,7 +297,7 @@
                     </select>
 
                     @error('status')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -322,11 +322,11 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500"
+                               focus:border-orange-600"
                     >
 
                     @error('featured_image')
-                        <p class="mt-1 text-sm text-red-400">
+                        <p class="mt-1 text-sm text-orange-600">
                             {{ $message }}
                         </p>
                     @enderror
@@ -363,11 +363,11 @@
                             class="mt-2 w-full rounded-lg border border-slate-700
                                    bg-slate-950 px-4 py-2.5 text-white
                                    placeholder-slate-500 outline-none
-                                   focus:border-indigo-500"
+                                   focus:border-orange-600"
                         >
 
                         @error('meta_title')
-                            <p class="mt-1 text-sm text-red-400">
+                            <p class="mt-1 text-sm text-orange-600">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -391,11 +391,11 @@
                             class="mt-2 w-full rounded-lg border border-slate-700
                                    bg-slate-950 px-4 py-3 text-white
                                    placeholder-slate-500 outline-none
-                                   focus:border-indigo-500"
+                                   focus:border-orange-600"
                         >{{ old('meta_description', $post->meta_description) }}</textarea>
 
                         @error('meta_description')
-                            <p class="mt-1 text-sm text-red-400">
+                            <p class="mt-1 text-sm text-orange-600">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -410,9 +410,9 @@
 
                     <button
                         type="submit"
-                        class="rounded-lg bg-indigo-600 px-5 py-2.5
+                        class="rounded-lg bg-orange-600 px-5 py-2.5
                                text-sm font-medium text-white
-                               transition hover:bg-indigo-500">
+                               transition hover:bg-orange-600">
                         Update Post
                     </button>
 

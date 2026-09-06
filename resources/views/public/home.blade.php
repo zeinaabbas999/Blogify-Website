@@ -1,7 +1,7 @@
 <x-public-layout>
     <div class="mx-auto max-w-6xl px-5 py-12">
         <div class="max-w-2xl border-b-4 border-stone-900 pb-6">
-            <p class="mb-3 text-sm font-bold uppercase tracking-widest text-amber-700">Latest publishing</p>
+            <p class="mb-3 text-sm font-bold uppercase tracking-widest text-orange-600">Latest publishing</p>
             <h1 class="font-serif text-4xl font-bold leading-tight sm:text-5xl">Stories, reporting, and ideas worth reading.</h1>
         </div>
 
@@ -14,8 +14,8 @@
             <div class="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($posts as $post)
                     <article class="border-t border-stone-400 pt-5">
-                        <p class="text-xs font-bold uppercase tracking-wider text-amber-700">{{ $post->category?->name ?? 'Uncategorized' }}</p>
-                        <h2 class="mt-3 font-serif text-2xl font-bold leading-snug"><a class="hover:text-amber-700" href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h2>
+                        <p class="text-xs font-bold uppercase tracking-wider text-orange-600">{{ $post->category?->name ?? 'Uncategorized' }}</p>
+                        <h2 class="mt-3 font-serif text-2xl font-bold leading-snug"><a class="hover:text-orange-600" href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h2>
                         @if ($post->excerpt)<p class="mt-3 leading-7 text-stone-600">{{ $post->excerpt }}</p>@endif
                         <p class="mt-5 text-sm text-stone-500">{{ $post->user->name }} · {{ $post->published_at->format('M j, Y') }}</p>
                     </article>

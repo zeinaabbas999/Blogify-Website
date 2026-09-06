@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Category;
-use App\Models\Tag;
 use App\Enums\PostStatus;
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
@@ -41,6 +38,7 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

@@ -35,7 +35,7 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500">
+                               focus:border-orange-600">
                 </div>
 
 
@@ -53,16 +53,16 @@
                         class="mt-2 w-full rounded-lg border border-slate-700
                                bg-slate-950 px-4 py-2.5 text-white
                                placeholder-slate-500 outline-none
-                               focus:border-indigo-500">
+                               focus:border-orange-600">
                 </div>
 
 
                 <div class="flex gap-3">
 
                     <button type="submit"
-                            class="rounded-lg bg-indigo-600 px-5 py-2.5
+                            class="rounded-lg bg-orange-600 px-5 py-2.5
                                    text-sm font-medium text-white
-                                   hover:bg-indigo-500">
+                                   hover:bg-orange-600">
                         Create Tag
                     </button>
 

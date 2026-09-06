@@ -19,8 +19,8 @@
 
             <a href="{{ route('admin.posts.create') }}"
                title="Create a new post"
-               class="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white
-                      transition hover:bg-indigo-500 hover:underline">
+               class="rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-medium text-white
+                      transition hover:bg-orange-600 hover:underline">
                 + Create Post
             </a>
 
@@ -56,13 +56,13 @@
                                 {{-- Status --}}
                                 @if ($post->status->value === 'published')
 
-                                    <span class="rounded-full bg-green-900/30 px-3 py-1 text-green-400">
+                                    <span class="rounded-full bg-stone-100 px-3 py-1 text-stone-600">
                                         Published
                                     </span>
 
                                 @else
 
-                                    <span class="rounded-full bg-yellow-900/30 px-3 py-1 text-yellow-400">
+                                    <span class="rounded-full bg-stone-100 px-3 py-1 text-stone-600">
                                         Draft
                                     </span>
 
@@ -129,9 +129,9 @@
 
                             @can('update', $post)
                             <a href="{{ route('admin.posts.edit', $post) }}"
-                               class="rounded-lg bg-indigo-600 px-3 py-2
+                               class="rounded-lg bg-orange-600 px-3 py-2
                                       text-sm font-medium text-white transition
-                                      hover:bg-indigo-500">
+                                      hover:bg-orange-600">
                                 Edit
                             </a>
                             @endcan
@@ -146,9 +146,9 @@
 
                                 <button
                                     type="submit"
-                                    class="rounded-lg border border-red-800 px-3 py-2
-                                           text-sm text-red-400 transition
-                                           hover:bg-red-900/30">
+                                    class="rounded-lg border border-stone-900 px-3 py-2
+                                           text-sm text-orange-600 transition
+                                           hover:bg-stone-100">
                                     Delete
                                 </button>
 
