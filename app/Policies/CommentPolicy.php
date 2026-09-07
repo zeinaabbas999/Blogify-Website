@@ -9,6 +9,6 @@ class CommentPolicy
 {
     public function delete(User $user, Comment $comment): bool
     {
-        return $user->is($comment->user) || $user->hasRole('Super Admin');
+        return $user->is($comment->user) || $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 }

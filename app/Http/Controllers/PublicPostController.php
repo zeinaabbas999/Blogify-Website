@@ -12,6 +12,7 @@ class PublicPostController extends Controller
     {
         $posts = Post::query()
             ->with(['user', 'category'])
+            ->withCount(['comments', 'likedByUsers'])
             ->where('status', PostStatus::PUBLISHED)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
@@ -30,7 +31,7 @@ class PublicPostController extends Controller
             'category',
             'tags',
             'comments' => fn ($query) => $query->with('user')->oldest(),
-        ])->loadCount('likedByUsers');
+        ])->loadCount(['likedByUsers', 'comments']);
 
         $likedByCurrentUser = auth()->check()
             && $post->likedByUsers()->whereKey(auth()->id())->exists();

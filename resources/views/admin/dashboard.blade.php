@@ -2,7 +2,41 @@
 @section('content')
 <div class="mx-auto max-w-6xl">
     <div class="flex flex-wrap items-end justify-between gap-5 border-b border-stone-300 pb-6"><div><p class="eyebrow">Workspace</p><h1 class="mt-2 font-serif text-4xl font-bold">Dashboard</h1><p class="mt-2 text-stone-600">Welcome back, {{ auth()->user()->name }}.</p></div>@can('create_posts')<a href="{{ route('admin.posts.create') }}" class="btn-primary">Create a post</a>@endcan</div>
-    <dl class="grid border-b border-stone-300 sm:grid-cols-{{ $usersCount !== null ? 4 : 3 }}"><div class="border-stone-300 py-6 sm:border-r sm:px-6 sm:first:pl-0"><dt class="text-sm text-stone-600">Total posts</dt><dd class="mt-1 font-serif text-4xl font-bold">{{ $postsCount }}</dd></div><div class="border-stone-300 py-6 sm:border-r sm:px-6"><dt class="text-sm text-stone-600">Published</dt><dd class="mt-1 font-serif text-4xl font-bold">{{ $publishedPosts }}</dd></div><div class="border-stone-300 py-6 sm:border-r sm:px-6"><dt class="text-sm text-stone-600">Drafts</dt><dd class="mt-1 font-serif text-4xl font-bold">{{ $draftPosts }}</dd></div>@if ($usersCount !== null)<div class="py-6 sm:px-6"><dt class="text-sm text-stone-600">Registered users</dt><dd class="mt-1 font-serif text-4xl font-bold">{{ $usersCount }}</dd></div>@endif</dl>
-    <section class="mt-10"><div class="flex items-center justify-between border-b border-stone-400 pb-3"><h2 class="font-serif text-2xl font-bold">Recent content</h2><a href="{{ route('admin.posts.index') }}" class="text-sm font-semibold text-orange-600 hover:underline">View all</a></div><div class="divide-y divide-stone-300">@forelse ($recentPosts as $post)<div class="grid gap-2 py-4 sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-8"><a href="{{ route('admin.posts.show', $post) }}" class="font-semibold hover:text-orange-600">{{ $post->title }}</a><span class="text-sm text-stone-500">{{ $post->user->name }}</span><span class="text-xs font-bold uppercase tracking-wide text-stone-600">{{ $post->status->value }}</span></div>@empty<div class="py-12"><p class="font-serif text-xl font-bold">No content yet.</p><p class="mt-1 text-stone-600">Create your first post to begin publishing.</p></div>@endforelse</div></section>
+    <dl class="mt-7 grid gap-4 sm:grid-cols-2">
+        @foreach ([['Total posts', $postsCount], ['Published', $publishedPosts], ['Drafts', $draftPosts], [$fourthMetricLabel, $fourthMetricValue]] as [$label, $value])
+            <div class="min-h-32 rounded-md border border-stone-300 bg-white p-5">
+                <dt class="text-sm font-semibold text-stone-600">{{ $label }}</dt>
+                <dd class="mt-3 font-serif text-4xl font-bold text-stone-950">{{ $value }}</dd>
+            </div>
+        @endforeach
+    </dl>
+    <section class="mt-10" aria-labelledby="recent-activity-heading">
+        <div class="border-b border-stone-400 pb-3"><h2 id="recent-activity-heading" class="font-serif text-2xl font-bold">Recent Activity</h2></div>
+        <div class="divide-y divide-stone-300">
+            @forelse ($recentActivity as $activity)
+                <article class="py-4">
+                    <p class="font-semibold text-stone-900">
+                        <span class="font-bold">{{ $activity['actor']->is(auth()->user()) ? 'You' : $activity['actor']->name }}</span>
+                        @if ($activity['type'] === 'commented')
+                            commented on
+                        @elseif ($activity['type'] === 'liked')
+                            liked
+                        @elseif ($activity['type'] === 'published')
+                            published
+                        @else
+                            created a draft
+                        @endif
+                        “<a href="{{ $activity['type'] === 'created' ? route('admin.posts.show', $activity['post']) : route('posts.show', $activity['post']) }}" class="hover:text-orange-600 hover:underline">{{ $activity['post']->title }}</a>”
+                    </p>
+                    @if ($activity['type'] === 'commented')
+                        <p class="mt-1 text-sm text-stone-600">{{ Str::limit($activity['comment']->content, 110) }}</p>
+                    @endif
+                    <time class="mt-1 block text-xs text-stone-500" datetime="{{ $activity['occurred_at']->toIso8601String() }}">{{ $activity['occurred_at']->diffForHumans() }}</time>
+                </article>
+            @empty
+                <div class="py-12"><p class="font-serif text-xl font-bold">No recent activity yet.</p><p class="mt-1 text-stone-600">{{ $activityIsPersonal ? 'New likes and comments on your posts will appear here.' : 'New publishing and engagement activity will appear here.' }}</p></div>
+            @endforelse
+        </div>
+    </section>
 </div>
 @endsection

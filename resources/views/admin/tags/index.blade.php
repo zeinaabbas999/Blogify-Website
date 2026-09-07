@@ -22,7 +22,7 @@
         </a>
     </div>
 
-    <div class="overflow-hidden rounded-xl border border-stone-300 bg-white">
+    <div class="overflow-x-auto rounded-xl border border-stone-300 bg-white">
 
         <table class="w-full text-left">
 

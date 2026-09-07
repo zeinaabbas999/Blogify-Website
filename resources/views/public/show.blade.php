@@ -2,30 +2,38 @@
     <div class="mx-auto max-w-3xl px-5 pt-8"><x-flash-messages /></div>
     <article class="mx-auto max-w-3xl px-5 py-14">
         <a href="{{ route('home') }}" class="text-sm font-semibold text-orange-600 hover:underline">Back to all stories</a>
-        <p class="mt-10 text-xs font-bold uppercase tracking-widest text-orange-600">{{ $post->category?->name ?? 'Uncategorized' }}</p>
+        <div class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-bold uppercase tracking-widest text-orange-600">
+            <span>{{ $post->category?->name ?? 'Uncategorized' }}</span>
+            @foreach ($post->tags as $tag)<span class="text-stone-500">#{{ $tag->name }}</span>@endforeach
+        </div>
         <h1 class="mt-3 font-serif text-4xl font-bold leading-tight sm:text-6xl">{{ $post->title }}</h1>
         <p class="mt-6 border-b border-stone-300 pb-6 text-stone-600">By {{ $post->user->name }} · {{ $post->published_at->format('F j, Y') }}</p>
+        @if ($post->featured_image)<figure class="mt-8 overflow-hidden bg-stone-200"><img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="max-h-[34rem] w-full object-cover"></figure>@endif
         @if ($post->excerpt)<p class="mt-8 font-serif text-xl leading-8 text-stone-700">{{ $post->excerpt }}</p>@endif
         <div class="mt-8 whitespace-pre-line text-lg leading-8 text-stone-800">{{ $post->content }}</div>
 
-        <div class="mt-10 flex items-center justify-between border-y border-stone-300 py-5">
-            <p class="font-semibold">{{ $post->liked_by_users_count }} {{ Str::plural('like', $post->liked_by_users_count) }}</p>
+        <div class="mt-10 flex items-center gap-5 border-y border-stone-300 py-5">
             @auth
                 @if ($likedByCurrentUser)
                     <form method="POST" action="{{ route('posts.likes.destroy', $post) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-secondary">Unlike</button>
+                        <button type="submit" aria-label="Unlike post" class="inline-flex items-center gap-2 rounded-sm text-orange-600 hover:text-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-600">
+                            <svg class="size-6" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg><span class="text-sm font-semibold">{{ $post->liked_by_users_count }}</span>
+                        </button>
                     </form>
                 @else
                     <form method="POST" action="{{ route('posts.likes.store', $post) }}">
                         @csrf
-                        <button type="submit" class="btn-primary">Like this post</button>
+                        <button type="submit" aria-label="Like post" class="inline-flex items-center gap-2 rounded-sm text-stone-600 hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-600">
+                            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg><span class="text-sm font-semibold">{{ $post->liked_by_users_count }}</span>
+                        </button>
                     </form>
                 @endif
             @else
-                <a href="{{ route('login') }}" class="font-semibold text-orange-600 hover:underline">Log in to like</a>
+                <a href="{{ route('login') }}" aria-label="Log in to like post" class="inline-flex items-center gap-2 rounded-sm text-stone-600 hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-600"><svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg><span class="text-sm font-semibold">{{ $post->liked_by_users_count }}</span></a>
             @endauth
+            <a href="#comments-heading" class="text-sm font-medium text-stone-600 hover:text-orange-600">{{ $post->comments_count }} {{ Str::plural('comment', $post->comments_count) }}</a>
         </div>
 
         <section class="mt-12" aria-labelledby="comments-heading">

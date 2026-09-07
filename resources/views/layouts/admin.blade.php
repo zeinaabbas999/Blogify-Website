@@ -23,6 +23,8 @@
         <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('*.dashboard') ? 'nav-item-active' : '' }}">Dashboard</a>
         @can('view_posts')<a href="{{ route('admin.posts.index') }}" class="nav-item {{ request()->routeIs('admin.posts.*') ? 'nav-item-active' : '' }}">{{ auth()->user()->can('view_all_posts') ? 'Posts' : 'My posts' }}</a>@endcan
         @can('create_posts')<a href="{{ route('admin.posts.create') }}" class="nav-item">Create post</a>@endcan
+        <a href="{{ route('dashboard.comments') }}" class="nav-item {{ request()->routeIs('dashboard.comments') ? 'nav-item-active' : '' }}">Comments</a>
+        <a href="{{ route('dashboard.likes') }}" class="nav-item {{ request()->routeIs('dashboard.likes') ? 'nav-item-active' : '' }}">Likes</a>
         @can('manage_categories')<a href="{{ route('admin.categories.index') }}" class="nav-item {{ request()->routeIs('admin.categories.*') ? 'nav-item-active' : '' }}">Categories</a>@endcan
         @can('manage_tags')<a href="{{ route('admin.tags.index') }}" class="nav-item {{ request()->routeIs('admin.tags.*') ? 'nav-item-active' : '' }}">Tags</a>@endcan
         @can('manage_users')<a href="{{ route('admin.users.index') }}" class="nav-item {{ request()->routeIs('admin.users.*') ? 'nav-item-active' : '' }}">Users</a>@endcan

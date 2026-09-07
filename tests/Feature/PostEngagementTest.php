@@ -63,12 +63,14 @@ test('comments are validated escaped and limited to published posts', function (
         ->assertDontSee('<script>alert("xss")</script>', escape: false);
 });
 
-test('comment deletion is limited to its owner or super admin', function () {
+test('comment deletion is limited to its owner or an administrative moderator', function () {
     $author = User::factory()->create();
     $owner = User::factory()->create();
     $other = User::factory()->create();
     $superAdmin = User::factory()->create();
     $superAdmin->assignRole('Super Admin');
+    $admin = User::factory()->create();
+    $admin->assignRole('Admin');
     $post = publishedPostFor($author);
     $comment = Comment::create(['user_id' => $owner->id, 'post_id' => $post->id, 'content' => 'Owned comment']);
 
@@ -81,6 +83,23 @@ test('comment deletion is limited to its owner or super admin', function () {
     $adminComment = Comment::create(['user_id' => $other->id, 'post_id' => $post->id, 'content' => 'Admin removable']);
     $this->actingAs($superAdmin)->delete(route('comments.destroy', $adminComment))->assertRedirect();
     expect($adminComment->fresh())->toBeNull();
+
+    $anotherComment = Comment::create(['user_id' => $other->id, 'post_id' => $post->id, 'content' => 'Also admin removable']);
+    $this->actingAs($admin)->delete(route('comments.destroy', $anotherComment))->assertRedirect();
+    expect($anotherComment->fresh())->toBeNull();
+});
+
+test('public post previews show accurate comment and like counts', function () {
+    $author = User::factory()->create();
+    $reader = User::factory()->create();
+    $post = publishedPostFor($author, 'engaged-post');
+    Comment::create(['user_id' => $reader->id, 'post_id' => $post->id, 'content' => 'Count me']);
+    $post->likedByUsers()->attach($reader->id);
+
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSee('</svg>1</span>', escape: false)
+        ->assertSee('1 comment');
 });
 
 test('likes are authenticated published-only unique and reversible', function () {
@@ -99,6 +118,28 @@ test('likes are authenticated published-only unique and reversible', function ()
 
     $this->actingAs($reader)->delete(route('posts.likes.destroy', $published))->assertRedirect();
     $this->assertDatabaseCount('post_likes', 0);
+});
+
+test('post heart reflects guest unliked and authenticated liked states', function () {
+    $author = User::factory()->create();
+    $reader = User::factory()->create();
+    $post = publishedPostFor($author, 'heart-state-post');
+    Comment::create(['user_id' => $reader->id, 'post_id' => $post->id, 'content' => 'Visible count']);
+
+    $this->get(route('posts.show', $post))
+        ->assertOk()
+        ->assertSee('aria-label="Log in to like post"', escape: false)
+        ->assertSee('1 comment');
+
+    $this->actingAs($reader)->get(route('posts.show', $post))
+        ->assertSee('aria-label="Like post"', escape: false)
+        ->assertDontSee('aria-label="Unlike post"', escape: false);
+
+    $this->actingAs($reader)->post(route('posts.likes.store', $post))->assertRedirect();
+
+    $this->actingAs($reader)->get(route('posts.show', $post))
+        ->assertSee('aria-label="Unlike post"', escape: false)
+        ->assertDontSee('aria-label="Like post"', escape: false);
 });
 
 test('deleting a post cascades its comments and likes', function () {

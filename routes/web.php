@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardCommentController;
+use App\Http\Controllers\DashboardLikeController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicPostController;
@@ -16,6 +18,10 @@ Route::get('/', [PublicPostController::class, 'index'])->name('home');
 Route::get('/articles/{post:slug}', [PublicPostController::class, 'show'])->name('posts.show');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/comments', DashboardCommentController::class)
+        ->name('dashboard.comments');
+    Route::get('/likes', DashboardLikeController::class)
+        ->name('dashboard.likes');
     Route::post('/articles/{post:slug}/comments', [CommentController::class, 'store'])
         ->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
