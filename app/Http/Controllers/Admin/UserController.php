@@ -85,10 +85,7 @@ class UserController extends Controller
         ]);
 
         $user->name = $validated['name'];
-        if ($user->email !== $validated['email']) {
-            $user->email = $validated['email'];
-            $user->email_verified_at = null;
-        }
+        $user->email = $validated['email'];
 
         if (! empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);

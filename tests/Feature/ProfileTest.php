@@ -12,7 +12,7 @@ test('profile page is displayed', function () {
     $response->assertOk();
 });
 
-test('profile information can be updated', function () {
+test('profile information can be updated without changing legacy verification data', function () {
     $user = User::factory()->create();
 
     $response = $this
@@ -30,10 +30,10 @@ test('profile information can be updated', function () {
 
     $this->assertSame('Test User', $user->name);
     $this->assertSame('test@example.com', $user->email);
-    $this->assertNull($user->email_verified_at);
+    $this->assertNotNull($user->email_verified_at);
 });
 
-test('email verification status is unchanged when the email address is unchanged', function () {
+test('legacy email timestamp is unchanged when the email address is unchanged', function () {
     $user = User::factory()->create();
 
     $response = $this

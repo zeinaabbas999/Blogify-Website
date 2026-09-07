@@ -9,7 +9,7 @@ beforeEach(function () {
 });
 
 it('redirects each role to its dashboard and protects the admin dashboard', function (string $role, string $route) {
-    $user = User::factory()->create();
+    $user = User::factory()->unverified()->create();
     $user->assignRole($role);
 
     $this->actingAs($user)->get(route('dashboard'))->assertRedirect(route($route));

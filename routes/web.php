@@ -22,18 +22,18 @@ Route::get('/dashboard', function () {
         default => 'author.dashboard',
     });
 })
-    ->middleware(['auth', 'verified'])
+    ->middleware('auth')
     ->name('dashboard');
 
 Route::get('/author/dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified', 'role:Author'])
+    ->middleware(['auth', 'role:Author'])
     ->name('author.dashboard');
 
 Route::get('/editor/dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified', 'role:Editor'])
+    ->middleware(['auth', 'role:Editor'])
     ->name('editor.dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -54,7 +54,7 @@ require __DIR__.'/auth.php';
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'verified'])
+Route::middleware('auth')
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {

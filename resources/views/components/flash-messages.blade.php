@@ -2,7 +2,6 @@
     $statusMessages = [
         'profile-updated' => 'Profile information updated successfully.',
         'password-updated' => 'Password updated successfully.',
-        'verification-link-sent' => 'A new verification link has been sent.',
     ];
 
     $messages = collect([
