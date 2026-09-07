@@ -44,6 +44,16 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'post_likes')->withTimestamps();
+    }
+
     public function publish(): void
     {
         $this->update([
@@ -63,6 +73,13 @@ class Post extends Model
     public function isPublished(): bool
     {
         return $this->status === PostStatus::PUBLISHED;
+    }
+
+    public function isPubliclyVisible(): bool
+    {
+        return $this->isPublished()
+            && $this->published_at !== null
+            && $this->published_at->lessThanOrEqualTo(now());
     }
 
     public function isDraft(): bool

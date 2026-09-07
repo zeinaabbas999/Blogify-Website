@@ -19,12 +19,14 @@
 
         <div class="flex gap-3">
 
+            @can('update', $post)
             <a href="{{ route('admin.posts.edit', $post) }}"
                class="rounded-lg bg-orange-600 px-4 py-2.5
                       text-sm font-medium text-stone-900
                       transition hover:bg-orange-600 hover:underline">
                 Edit Post
             </a>
+            @endcan
 
             <a href="{{ route('admin.posts.index') }}"
                class="rounded-lg border border-slate-900
@@ -225,6 +227,7 @@
         {{-- Actions --}}
         <div class="mt-8 flex gap-3 border-t border-stone-300 pt-6">
 
+            @can('update', $post)
             <a
                 href="{{ route('admin.posts.edit', $post) }}"
                 class="rounded-lg bg-orange-600 px-5 py-2.5
@@ -232,7 +235,9 @@
                        transition hover:bg-orange-600">
                 Edit Post
             </a>
+            @endcan
 
+            @can('delete', $post)
             <form
                 action="{{ route('admin.posts.destroy', $post) }}"
                 method="POST"
@@ -252,6 +257,7 @@
                 </button>
 
             </form>
+            @endcan
 
         </div>
 

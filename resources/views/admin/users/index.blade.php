@@ -50,13 +50,13 @@
                                 <div class="flex items-center justify-end gap-4 text-sm font-semibold">
                                     <a href="{{ route('admin.users.show', $user) }}" class="text-stone-700 hover:text-stone-950 hover:underline">View</a>
                                     <a href="{{ route('admin.users.edit', $user) }}" class="text-orange-600 hover:underline">Edit</a>
-                                    @if (! $user->is(auth()->user()))
+                                    @can('delete', $user)
                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-stone-700 hover:text-stone-950 hover:underline">Delete</button>
                                         </form>
-                                    @endif
+                                    @endcan
                                 </div>
                             </td>
                         </tr>

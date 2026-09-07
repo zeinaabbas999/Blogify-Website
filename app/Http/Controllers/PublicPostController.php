@@ -23,10 +23,18 @@ class PublicPostController extends Controller
 
     public function show(Post $post): View
     {
-        abort_unless($post->isPublished() && $post->published_at?->isPast(), 404);
+        abort_unless($post->isPubliclyVisible(), 404);
 
-        $post->load(['user', 'category', 'tags']);
+        $post->load([
+            'user',
+            'category',
+            'tags',
+            'comments' => fn ($query) => $query->with('user')->oldest(),
+        ])->loadCount('likedByUsers');
 
-        return view('public.show', compact('post'));
+        $likedByCurrentUser = auth()->check()
+            && $post->likedByUsers()->whereKey(auth()->id())->exists();
+
+        return view('public.show', compact('post', 'likedByCurrentUser'));
     }
 }

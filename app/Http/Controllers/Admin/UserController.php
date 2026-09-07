@@ -102,6 +102,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        abort_unless(auth()->user()->hasRole('Super Admin'), 403);
+        abort_if($user->hasRole('Super Admin'), 403);
         Gate::authorize('delete', $user);
         if ($user->id === auth()->id()) {
             return redirect()

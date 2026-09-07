@@ -6,12 +6,25 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicPostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicPostController::class, 'index'])->name('home');
 Route::get('/articles/{post:slug}', [PublicPostController::class, 'show'])->name('posts.show');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/articles/{post:slug}/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+        ->name('comments.destroy');
+    Route::post('/articles/{post:slug}/likes', [PostLikeController::class, 'store'])
+        ->name('posts.likes.store');
+    Route::delete('/articles/{post:slug}/likes', [PostLikeController::class, 'destroy'])
+        ->name('posts.likes.destroy');
+});
 
 Route::get('/dashboard', function () {
     $user = request()->user();

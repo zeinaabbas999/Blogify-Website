@@ -47,6 +47,7 @@ class RoleSeeder extends Seeder
             'view_posts',
             'edit_own_posts',
             'delete_own_posts',
+            'publish_posts',
         ]);
     }
 }

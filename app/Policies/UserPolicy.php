@@ -28,7 +28,7 @@ class UserPolicy
 
     public function delete(User $user, User $subject): bool
     {
-        return ! $user->is($subject) && $user->can('manage_users') && ! $subject->hasRole('Super Admin');
+        return ! $user->is($subject) && $user->hasRole('Super Admin') && ! $subject->hasRole('Super Admin');
     }
 
     public function assignRoles(User $user): bool
